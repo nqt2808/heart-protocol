@@ -338,7 +338,14 @@ const bootTerminalArea = document.getElementById("bootTerminalArea");
 const bootTapHint = document.getElementById("bootTapHint");
 let bootReady = false;
 
+let typingBoot = false;
+let bootFullText = "";
+
 async function runBootSequence() {
+  typingBoot = true;
+  bootReady = false;
+  isTransitioning = false;
+
   const bootMsg =
     "Hế lu chị.\n\n" +
     "Đang khởi tạo...\n" +
@@ -346,15 +353,21 @@ async function runBootSequence() {
     "Đang kiểm tra...\n\n" +
     "Chờ em mụt chíu nhó.";
 
-  await typeText(bootText, bootMsg, 28);
-  await sleep(850);
+  const finalMsg =
+    "\n\nCHƯƠNG TRÌNH ĐÃ SẴN SÀNG.\n\nNhấn để tiếp tục.";
 
-  await appendText(
-    bootText,
-    "\n\nCHƯƠNG TRÌNH ĐÃ SẴN SÀNG.\n\nNhấn để tiếp tục.",
-    28
-  );
+  bootFullText = bootMsg + finalMsg;
 
+  // Type first part
+  await typeText(bootText, bootMsg, 24);
+  if (!typingBoot) return; // user skipped
+  await sleep(650);
+
+  // Type second part
+  if (!typingBoot) return;
+  await appendText(bootText, finalMsg, 24);
+
+  typingBoot = false;
   bootReady = true;
   isTransitioning = false;
   bootTapHint.classList.add("show");
@@ -365,9 +378,34 @@ async function runBootSequence() {
   }
 }
 
+function skipBootTyping() {
+  if (typingBoot) {
+    typingBoot = false;
+    bootText.textContent = bootFullText;
+    bootReady = true;
+    isTransitioning = false;
+    bootTapHint.classList.add("show");
+    const bootContinueBtn = document.getElementById("bootContinueBtn");
+    if (bootContinueBtn) {
+      bootContinueBtn.style.display = "inline-flex";
+    }
+    return true;
+  }
+  return false;
+}
+
 async function proceedFromBoot(e) {
-  if (e) e.stopPropagation();
-  if (!bootReady || isTransitioning) return;
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+  }
+
+  // If still typing, clicking once will immediately finish the text!
+  if (typingBoot) {
+    skipBootTyping();
+    return;
+  }
+
+  if (isTransitioning) return;
   isTransitioning = true;
   await switchScene("sceneBoot", "sceneScan");
   await runScanSequence();
@@ -377,16 +415,27 @@ async function proceedFromBoot(e) {
 const bootContinueBtn = document.getElementById("bootContinueBtn");
 if (bootContinueBtn) {
   bootContinueBtn.addEventListener("click", proceedFromBoot);
+  bootContinueBtn.addEventListener("touchend", proceedFromBoot);
 }
 bootTerminalArea.addEventListener("click", proceedFromBoot);
-document.getElementById("sceneBoot").addEventListener("click", proceedFromBoot);
+bootTerminalArea.addEventListener("touchend", proceedFromBoot);
 
-// Also allow clicking anywhere on the document when sceneBoot is active
-document.addEventListener("click", (e) => {
+const sceneBootEl = document.getElementById("sceneBoot");
+if (sceneBootEl) {
+  sceneBootEl.addEventListener("click", proceedFromBoot);
+  sceneBootEl.addEventListener("touchend", proceedFromBoot);
+}
+
+// Global click/touch listener when in sceneBoot
+window.addEventListener("click", (e) => {
   const sceneBoot = document.getElementById("sceneBoot");
-  if (sceneBoot && sceneBoot.classList.contains("active") && bootReady && !isTransitioning) {
-    // Avoid double trigger if clicking button
-    if (e.target && e.target.id === "bootContinueBtn") return;
+  if (sceneBoot && sceneBoot.classList.contains("active") && !isTransitioning) {
+    proceedFromBoot(e);
+  }
+});
+window.addEventListener("touchend", (e) => {
+  const sceneBoot = document.getElementById("sceneBoot");
+  if (sceneBoot && sceneBoot.classList.contains("active") && !isTransitioning) {
     proceedFromBoot(e);
   }
 });
