@@ -356,18 +356,40 @@ async function runBootSequence() {
   );
 
   bootReady = true;
+  isTransitioning = false;
   bootTapHint.classList.add("show");
+
+  const bootContinueBtn = document.getElementById("bootContinueBtn");
+  if (bootContinueBtn) {
+    bootContinueBtn.style.display = "inline-flex";
+  }
 }
 
-async function proceedFromBoot() {
+async function proceedFromBoot(e) {
+  if (e) e.stopPropagation();
   if (!bootReady || isTransitioning) return;
   isTransitioning = true;
   await switchScene("sceneBoot", "sceneScan");
-  runScanSequence();
+  await runScanSequence();
+  isTransitioning = false;
 }
 
+const bootContinueBtn = document.getElementById("bootContinueBtn");
+if (bootContinueBtn) {
+  bootContinueBtn.addEventListener("click", proceedFromBoot);
+}
 bootTerminalArea.addEventListener("click", proceedFromBoot);
 document.getElementById("sceneBoot").addEventListener("click", proceedFromBoot);
+
+// Also allow clicking anywhere on the document when sceneBoot is active
+document.addEventListener("click", (e) => {
+  const sceneBoot = document.getElementById("sceneBoot");
+  if (sceneBoot && sceneBoot.classList.contains("active") && bootReady && !isTransitioning) {
+    // Avoid double trigger if clicking button
+    if (e.target && e.target.id === "bootContinueBtn") return;
+    proceedFromBoot(e);
+  }
+});
 
 // ===================================================================
 // SCENE 3: SCAN
