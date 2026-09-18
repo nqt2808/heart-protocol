@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: heart-protocol
+    env: static
+    buildCommand: ""
+    staticPublishPath: .

@@ -142,9 +142,104 @@ async function switchScene(fromSceneId, toSceneId) {
   }
 }
 
-// --- AUDIO SYSTEM (WITH WEB AUDIO API SYNTHESIZER FALLBACK) ---
+// --- AUDIO & PLAYLIST SYSTEM ---
 const boomAudio = document.getElementById("boomAudio");
+const dingdongAudio = document.getElementById("dingdongAudio");
+const bgMusic = document.getElementById("bgMusic");
+const musicTitleText = document.getElementById("musicTitleText");
+const musicPlayBtn = document.getElementById("musicPlayBtn");
+const musicNextBtn = document.getElementById("musicNextBtn");
+const musicDiscIcon = document.getElementById("musicDiscIcon");
+const musicSoundbars = document.getElementById("musicSoundbars");
+
+const Playlist = [
+  {
+    title: "Yes or No - Jung Kook",
+    src: "music/yes_or_no.mp3"
+  },
+  {
+    title: "Người Im Lặng Gặp Người Hay Nói - HIEUTHUHAI",
+    src: "music/nguoi_im_lang.mp3"
+  },
+  {
+    title: "Im Đợi Người Anh Thương - Tinh Hà Say Hi",
+    src: "music/im_doi_nguoi_anh_thuong.mp3"
+  }
+];
+
+let currentTrackIndex = 0;
+let isMusicPlaying = false;
 let audioUnlocked = false;
+
+function loadTrack(index) {
+  if (index < 0) index = Playlist.length - 1;
+  if (index >= Playlist.length) index = 0;
+  currentTrackIndex = index;
+  const track = Playlist[currentTrackIndex];
+  bgMusic.src = track.src;
+  musicTitleText.textContent = track.title;
+}
+
+function startMusic() {
+  if (!bgMusic.src || bgMusic.src === "") {
+    loadTrack(0);
+  }
+  bgMusic.volume = 0.45;
+  bgMusic.play().then(() => {
+    setMusicPlayingState(true);
+  }).catch((err) => {
+    console.log("Audio autoplay waiting or file not found:", err);
+    setMusicPlayingState(false);
+  });
+}
+
+function toggleMusic() {
+  if (isMusicPlaying) {
+    bgMusic.pause();
+    setMusicPlayingState(false);
+  } else {
+    if (!bgMusic.src || bgMusic.src === "") loadTrack(currentTrackIndex);
+    bgMusic.play().then(() => {
+      setMusicPlayingState(true);
+    }).catch(() => {
+      nextTrack();
+    });
+  }
+}
+
+function nextTrack() {
+  loadTrack(currentTrackIndex + 1);
+  bgMusic.play().then(() => {
+    setMusicPlayingState(true);
+  }).catch(() => {
+    setMusicPlayingState(false);
+  });
+}
+
+function setMusicPlayingState(playing) {
+  isMusicPlaying = playing;
+  if (playing) {
+    musicPlayBtn.textContent = "⏸";
+    musicDiscIcon.classList.add("playing");
+    musicSoundbars.classList.add("playing");
+  } else {
+    musicPlayBtn.textContent = "▶";
+    musicDiscIcon.classList.remove("playing");
+    musicSoundbars.classList.remove("playing");
+  }
+}
+
+if (bgMusic) {
+  bgMusic.addEventListener("ended", () => {
+    nextTrack();
+  });
+  bgMusic.addEventListener("error", () => {
+    console.log("Track file not loaded: " + Playlist[currentTrackIndex].src);
+  });
+}
+
+if (musicPlayBtn) musicPlayBtn.addEventListener("click", toggleMusic);
+if (musicNextBtn) musicNextBtn.addEventListener("click", nextTrack);
 
 function unlockAudio() {
   if (audioUnlocked) return;
@@ -154,6 +249,12 @@ function unlockAudio() {
     boomAudio.play().then(() => {
       boomAudio.pause();
       boomAudio.currentTime = 0;
+    }).catch(() => {});
+  }
+  if (dingdongAudio) {
+    dingdongAudio.play().then(() => {
+      dingdongAudio.pause();
+      dingdongAudio.currentTime = 0;
     }).catch(() => {});
   }
 }
@@ -317,10 +418,20 @@ async function checkIdentity() {
     "ÔI TÌNH YÊU CỤA EM TỚI ỒI.\n" +
     "ĐI TÌM TÌNH YÊU THOIIII...";
 
+  // Play dingdong doorbell sound effect!
+  if (dingdongAudio) {
+    dingdongAudio.currentTime = 0;
+    dingdongAudio.volume = 0.9;
+    dingdongAudio.play().catch((e) => console.log("Dingdong error:", e));
+  }
+
+  // Start background playlist
+  startMusic();
+
   loginBtn.disabled = true;
   nameInput.disabled = true;
 
-  await sleep(1100);
+  await sleep(1400);
   await switchScene("sceneLogin", "sceneBoot");
   runBootSequence();
 }
@@ -641,10 +752,19 @@ async function runFinalSequence() {
   await sleep(1000);
 
   // Climax: Sound & Explosion banner
+  if (bgMusic && isMusicPlaying) {
+    bgMusic.volume = 0.1;
+  }
   playBoomSound();
   boomBanner.style.display = "block";
   spawnBurst(35, canvas.width / 2, canvas.height / 2);
   scrollToBottomSmooth();
+
+  setTimeout(() => {
+    if (bgMusic && isMusicPlaying) {
+      bgMusic.volume = 0.45;
+    }
+  }, 2400);
 
   await sleep(1100);
   await typeText(finalAfterBoom, FinalMessageAfterBoom, 34, true);

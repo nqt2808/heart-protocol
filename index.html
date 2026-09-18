@@ -21,6 +21,23 @@
   <!-- FLOATING HEARTS CANVAS -->
   <canvas id="heartCanvas"></canvas>
 
+  <!-- FLOATING MUSIC PLAYER WIDGET -->
+  <aside class="music-player-widget" id="musicPlayerWidget" aria-label="Trình phát nhạc nền">
+    <div class="music-disc-icon playing" id="musicDiscIcon">🎵</div>
+    <div class="music-info">
+      <div class="music-title-track">
+        <span class="music-title-text" id="musicTitleText">Yes or No - Jung Kook</span>
+      </div>
+      <div class="music-soundbars" id="musicSoundbars">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="musicPlayBtn" title="Phát / Tạm dừng" aria-label="Phát / Tạm dừng">⏸</button>
+      <button class="music-btn" id="musicNextBtn" title="Bài kế tiếp" aria-label="Bài kế tiếp">⏭</button>
+    </div>
+  </aside>
+
   <main class="app-container" id="appContainer">
 
     <!-- 1. SCENE LOGIN -->
@@ -180,8 +197,10 @@
 
   </main>
 
+  <audio id="bgMusic" preload="auto"></audio>
+  <audio id="dingdongAudio" preload="auto" src="dingdong.mp3"></audio>
   <audio id="boomAudio" preload="auto" src="boom.mp3"></audio>
-  <script src="script.js?v=2.1"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 
 </html>
