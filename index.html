@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Heart Protocol ❤</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+</head>
+
+<body>
+
+  <!-- FLOATING HEARTS CANVAS -->
+  <canvas id="heartCanvas"></canvas>
+
+  <main class="app-container" id="appContainer">
+
+    <!-- 1. SCENE LOGIN -->
+    <section class="scene active" id="sceneLogin">
+      <div class="card login-card">
+        <h1 class="terminal-title glow-text">ĐI TÌM TÌNH YÊU❤.</h1>
+        <div class="terminal-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+
+        <h2 class="terminal-subtitle">XÁC MINH TÌNH YÊU.</h2>
+        <p class="login-desc">Cho em biết tên của chị nho.</p>
+
+        <div class="input-wrapper">
+          <input type="text" id="nameInput" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+
+        <button class="terminal-btn btn-primary" id="loginBtn">[ XÁC NHẬN ]</button>
+        <p class="status-msg" id="loginStatus"></p>
+      </div>
+    </section>
+
+    <!-- 2. SCENE BOOT -->
+    <section class="scene" id="sceneBoot">
+      <div class="terminal-box" id="bootTerminalArea">
+        <div class="typewriter-content" id="bootText"></div>
+        <span class="cursor" id="cursorBlock">█</span>
+      </div>
+      <div class="tap-hint" id="bootTapHint">Chạm vào màn hình để tiếp tục</div>
+    </section>
+
+    <!-- 3. SCENE SCAN -->
+    <section class="scene" id="sceneScan">
+      <div class="card scan-card">
+        <h2 class="terminal-title">ĐI TÌM TÌNH YÊU ❤</h2>
+        <div class="terminal-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+
+        <div class="scan-status-line">
+          <span class="scan-label" id="scanLabel">Đang quét hệ thống...</span>
+          <span class="scan-percent" id="scanPercent">0%</span>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="scanProgressFill"></div>
+        </div>
+
+        <div class="scan-warning" id="scanWarning">
+          <div class="warning-title">CẢNH BÁO</div>
+          <div class="warning-desc">Lỗi rồi lỗi rồi.</div>
+        </div>
+
+        <div class="process-info-box" id="processInfo"></div>
+
+        <div class="inspect-group" id="inspectGroup">
+          <p class="inspect-question">Chị có muốn biết điều gì đang xảy ra không?</p>
+          <button class="terminal-btn btn-mint" id="inspectBtn">[ CÓ ]</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SCENE HEART -->
+    <section class="scene" id="sceneHeart">
+      <div class="heart-scene-content">
+        <div class="big-heart heartbeat" id="bigHeart" role="button" aria-label="Trái tim bí mật">❤</div>
+        <h2 class="heart-status-text">Đã phát hiện đối tượng.</h2>
+        <p class="heart-hint-text">Nhấn vào ❤ để biết thêm chi tiết.</p>
+      </div>
+    </section>
+
+    <!-- 5. SCENE MEMORY -->
+    <section class="scene" id="sceneMemory">
+      <div class="memory-container">
+        <h2 class="terminal-title glow-white">LỖI ĐÃ ĐƯỢC GIẢI MÃ</h2>
+        <p class="memory-hint">Hãy mở từng mảnh theo thứ tự nha.</p>
+
+        <div class="memory-nav">
+          <button class="terminal-btn memory-btn" id="memBtn1" data-id="1">First</button>
+          <button class="terminal-btn memory-btn" id="memBtn2" data-id="2" disabled>Second</button>
+          <button class="terminal-btn memory-btn" id="memBtn3" data-id="3" disabled>Last</button>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-text" id="memoryContent"></div>
+        </div>
+
+        <div class="memory-footer">
+          <button class="terminal-btn btn-crimson" id="memContinueBtn">[ TIẾP TỤC ]</button>
+          <div class="analysis-done" id="analysisDoneText">GIẢI MÃ HOÀN TẤT</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. SCENE DECRYPT -->
+    <section class="scene" id="sceneDecrypt">
+      <div class="card decrypt-card">
+        <h2 class="terminal-title glow-white">PHÂN TÍCH DANH TÍNH</h2>
+
+        <div class="decrypt-terminal-text" id="decryptTerminal"></div>
+
+        <div class="decrypt-progress-wrap" id="decryptProgressWrap">
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill crimson" id="decryptProgressFill"></div>
+          </div>
+          <div class="ascii-bar" id="decryptBarText"></div>
+        </div>
+
+        <button class="terminal-btn btn-crimson" id="secretBtn">SECRET Ở ĐÂY.exe</button>
+      </div>
+    </section>
+
+    <!-- 7. SCENE FINAL -->
+    <section class="scene" id="sceneFinal">
+      <div class="final-container" id="finalContainer">
+        <div class="final-heart heartbeat" id="finalHeart">❤</div>
+
+        <div class="final-text-block intro" id="finalIntro"></div>
+        <div class="final-text-block lead" id="finalLead"></div>
+
+        <div class="her-name-highlight" id="herNameDisplay">Tuyết Mai</div>
+
+        <div class="final-text-block love" id="finalLove"></div>
+
+        <div class="boom-effect" id="boomBanner">💥 ĐÙNG! 💥</div>
+
+        <div class="final-text-block post-boom" id="finalAfterBoom"></div>
+
+        <h3 class="final-question" id="finalQuestion"></h3>
+
+        <div class="final-actions" id="finalActions">
+          <button class="terminal-btn btn-yes" id="yesBtn">ĐỒNG Ý ❤</button>
+          <button class="terminal-btn btn-no" id="thinkBtn">KHÔNG ĐỒNG Ý :></button>
+        </div>
+
+        <div class="final-status-result" id="finalStatusResult"></div>
+      </div>
+    </section>
+
+    <!-- BUILD STAMP -->
+    <footer class="build-stamp" id="buildStamp">Bản dựng 14.09.2026</footer>
+
+    <!-- 8. DEVELOPER NOTE OVERLAY (MODAL) -->
+    <div class="modal-overlay" id="devNoteModal">
+      <div class="modal-card">
+        <h3 class="modal-title">Ghi chú của người viết:</h3>
+        <div class="modal-body">
+          <p>Dù chị chọn câu trả lời nào,</p>
+          <p>em cũng cảm ơn chị vì đã đọc đến tận đây :))</p>
+          <br>
+          <p>Ít nhất hôm nay em cũng đủ can đảm</p>
+          <p>để thành thật với cảm xúc của mình.</p>
+          <br>
+          <p>Còn một chuyện thì chắc chắn...</p>
+          <p class="modal-highlight">em thích chị thật. ❤</p>
+        </div>
+        <button class="terminal-btn" id="closeModalBtn">[ ĐÓNG ]</button>
+      </div>
+    </div>
+
+  </main>
+
+  <audio id="boomAudio" preload="auto" src="boom.mp3"></audio>
+  <script src="script.js"></script>
+</body>
+
+</html>
