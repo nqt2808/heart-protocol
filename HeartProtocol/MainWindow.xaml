@@ -130,7 +130,9 @@
           Background="#080A0F">
 
 
+        <!-- ====================================================== -->
         <!-- LOGIN -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneLogin"
               Background="#080A0F">
@@ -207,7 +209,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- BOOT -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneBoot"
               Visibility="Collapsed"
@@ -239,7 +243,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- SCAN -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneScan"
               Visibility="Collapsed"
@@ -324,7 +330,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- HEART -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneHeart"
               Visibility="Collapsed"
@@ -384,7 +392,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- MEMORY -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneMemory"
               Visibility="Collapsed"
@@ -487,7 +497,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- DECRYPT -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneDecrypt"
               Visibility="Collapsed"
@@ -540,7 +552,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- FINAL -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="SceneFinal"
               Visibility="Collapsed"
@@ -586,6 +600,7 @@
 
                     </TextBlock>
 
+
                     <TextBlock x:Name="FinalIntroText"
                                FontFamily="Segoe UI"
                                Foreground="#E7EAF0"
@@ -595,6 +610,7 @@
                                TextWrapping="Wrap"
                                Margin="0,14,0,18"/>
 
+
                     <TextBlock x:Name="FinalLeadText"
                                FontFamily="Segoe UI"
                                Foreground="#E7EAF0"
@@ -602,6 +618,7 @@
                                LineHeight="30"
                                TextAlignment="Center"
                                TextWrapping="Wrap"/>
+
 
                     <TextBlock x:Name="HerNameText"
                                Visibility="Collapsed"
@@ -624,6 +641,7 @@
 
                     </TextBlock>
 
+
                     <TextBlock x:Name="FinalLoveText"
                                FontFamily="Segoe UI"
                                Foreground="#E7EAF0"
@@ -633,6 +651,7 @@
                                TextWrapping="Wrap"
                                Margin="0,0,0,24"/>
 
+
                     <TextBlock x:Name="FinalQuestionText"
                                FontFamily="Segoe UI"
                                FontWeight="SemiBold"
@@ -641,6 +660,7 @@
                                TextAlignment="Center"
                                TextWrapping="Wrap"
                                Margin="0,0,0,20"/>
+
 
                     <StackPanel x:Name="FinalButtons"
                                 Visibility="Collapsed"
@@ -664,6 +684,7 @@
 
                     </StackPanel>
 
+
                     <TextBlock x:Name="FinalStatusText"
                                FontFamily="Segoe UI"
                                Foreground="#7CFFB2"
@@ -679,7 +700,9 @@
         </Grid>
 
 
+        <!-- ====================================================== -->
         <!-- BUILD -->
+        <!-- ====================================================== -->
 
         <TextBlock x:Name="BuildStamp"
                    Visibility="Collapsed"
@@ -692,7 +715,9 @@
                    Margin="0,0,18,12"/>
 
 
-        <!-- GHI CHÚ CUỐI -->
+        <!-- ====================================================== -->
+        <!-- NOTE -->
+        <!-- ====================================================== -->
 
         <Grid x:Name="DeveloperNoteOverlay"
               Visibility="Collapsed"

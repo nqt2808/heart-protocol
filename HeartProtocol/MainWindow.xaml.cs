@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,9 +47,14 @@ namespace HeartProtocol
             "Nhưng càng để ý thì em càng rén :))))\n\n" +
 
             "Có lúc em muốn chủ động tiến thêm một bước, " +
-            "nhưng lại không chắc chị đang nhìn em như thế nào.\n\n";
+            "nhưng lại không chắc chị đang nhìn em như thế nào.\n\n" +
 
-            
+            "Có khi em còn không biết những cái sign của chị là thật, " +
+            "hay tại em để ý chị quá nên tự suy diễn nữa :))))\n\n" +
+
+            "Em yếu nghề lắm chị ơi.";
+
+
         private const string Last =
             "Em biết giữa chúng ta có khoảng cách.\n\n" +
 
@@ -65,19 +70,19 @@ namespace HeartProtocol
 
             "Nếu chị bận đến quên ăn, em nhắc chị ăn.\n" +
 
-            "Nếu chị cần người đón đưa, em sẵn lòng.\n" +
-
+            "Nếu chị cần người đón đưa, em sẵn lòng.\n\n" +
 
             "Còn nếu có lúc chị chỉ cần một vòng tay " +
             "và không muốn nói gì cả...\n\n" +
+
             "em cũng muốn cho chị vòng tay đó.\n\n" +
 
-            "Em không hứa mình có thể bù đắp những điều không vui đã qua.\n" +
+            "Em không hứa mình có thể bù đắp những điều không vui đã qua.\n\n" +
 
             "Em chỉ muốn nếu chị cho phép, " +
             "em sẽ đem những gì tốt nhất em có đến cho chị.\n\n" +
 
-            "Ở bên chị em không cần phải gồng và ngược lại.\n\n" +
+            "Ở bên chị em không cần phải gồng.\n\n" +
 
             "Và em cũng muốn một ngày nào đó, " +
             "mình có thể trở thành một nơi đủ yên để chị dựa vào.";
@@ -98,15 +103,22 @@ namespace HeartProtocol
 
             "Đến lúc này em nhận ra...\n\n" +
 
-            "Tuổi tác hay generation gap, 15-20 tuổi " +
+            "Tuổi tác, generation gap, " +
+            "thậm chí cả cái khoảng cách 15–20 tuổi " +
             "không còn là thứ làm em băn khoăn nhất nữa.\n\n" +
 
-            "Thứ làm em băn khoăn suy nghĩ nhiều nhất là chị.\n\n" +
+            "Thứ làm em suy nghĩ nhiều nhất...\n\n" +
 
-            "'Ủa chỉ làm vậy là có ý gì?' , " +
-            "'Ủa chỉ có thích mình không ta?' , " +
-            "'Chị oi đùng nhìn em z nữa em ngại chết mất.' , " +
-            "cũng không phải vì em thích cảm giác mình là ngoại lệ.\n\n" +
+            "là chị.\n\n" +
+
+            "Trong đầu em cứ chạy mấy câu kiểu:\n\n" +
+
+            "\"Ủa chị làm vậy là có ý gì?\"\n" +
+            "\"Ủa chị có thích mình không ta?\"\n" +
+            "\"Chị ơi đừng nhìn em vậy nữa, em ngại chết mất :))))\"\n\n" +
+
+            "Nhưng rồi em biết cảm giác này " +
+            "không chỉ đến từ mấy cái sign mập mờ đó.\n\n" +
 
             "Mà vì chị khiến một ngày mệt mỏi của em nhẹ đi.\n" +
             "Và em thích chính mình khi ở cạnh chị.\n\n" +
@@ -127,13 +139,35 @@ namespace HeartProtocol
 
             "Còn nếu không, em vẫn tôn trọng chị, " +
             "tôn trọng câu trả lời của chị " +
-            "và trân trọng những gì đã có giữa hai người.\n\n" +
+            "và trân trọng những gì đã có giữa hai đứa.\n\n" +
 
             "Em chỉ không muốn giấu cảm xúc này mãi nữa.\n\n" +
 
             "Nên hôm nay em nói thật.\n\n" +
 
             "Em thích chị. ❤";
+
+
+        // =========================================================
+        // PLAYLIST NHẠC NỀN
+        // =========================================================
+
+        private readonly string[] backgroundTracks =
+        {
+            "yes-or-no.mp3",
+            "nguoi-im-lang-gap-nguoi-hay-noi.mp3",
+            "im-doi-nguoi-anh-thuong.mp3"
+        };
+
+
+        private const double BackgroundMusicVolume = 0.24;
+
+
+        private int currentTrackIndex = 0;
+
+        private int backgroundFailCount = 0;
+
+        private bool backgroundMusicStarted = false;
 
 
         // =========================================================
@@ -153,14 +187,19 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // ÂM THANH
+        // AUDIO PLAYER
         // =========================================================
 
-        private readonly MediaPlayer boomPlayer =
+        private readonly MediaPlayer backgroundPlayer =
             new MediaPlayer();
 
 
-        private bool boomSoundReady = false;
+        private readonly MediaPlayer dingPlayer =
+            new MediaPlayer();
+
+
+        private readonly MediaPlayer boomPlayer =
+            new MediaPlayer();
 
 
         // =========================================================
@@ -201,12 +240,20 @@ namespace HeartProtocol
                 HeartSpawnTimer_Tick;
 
 
-            boomPlayer.MediaOpened +=
-                BoomPlayer_MediaOpened;
+            // =====================================================
+            // PLAYLIST EVENTS
+            // =====================================================
+
+            backgroundPlayer.MediaOpened +=
+                BackgroundPlayer_MediaOpened;
 
 
-            boomPlayer.MediaFailed +=
-                BoomPlayer_MediaFailed;
+            backgroundPlayer.MediaEnded +=
+                BackgroundPlayer_MediaEnded;
+
+
+            backgroundPlayer.MediaFailed +=
+                BackgroundPlayer_MediaFailed;
         }
 
 
@@ -220,7 +267,11 @@ namespace HeartProtocol
         {
             NameInput.Focus();
 
-            LoadBoomSound();
+
+            LoadEffectSounds();
+
+
+            StartBackgroundMusic();
         }
 
 
@@ -234,7 +285,19 @@ namespace HeartProtocol
         {
             cursorTimer.Stop();
 
+
             heartSpawnTimer.Stop();
+
+
+            backgroundPlayer.Stop();
+
+            backgroundPlayer.Close();
+
+
+            dingPlayer.Stop();
+
+            dingPlayer.Close();
+
 
             boomPlayer.Stop();
 
@@ -243,82 +306,395 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // ÂM THANH
+        // ĐƯỜNG DẪN ASSETS
         // =========================================================
 
-        private void LoadBoomSound()
+        private static string GetAssetPath(
+            string fileName)
+        {
+            return System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Assets",
+                fileName
+            );
+        }
+
+
+        // =========================================================
+        // LOAD DING + BOOM
+        // =========================================================
+
+        private void LoadEffectSounds()
+        {
+            LoadEffectSound(
+                dingPlayer,
+                "dingdong.mp3"
+            );
+
+
+            LoadEffectSound(
+                boomPlayer,
+                "boom.mp3"
+            );
+        }
+
+
+        private void LoadEffectSound(
+            MediaPlayer player,
+            string fileName)
         {
             try
             {
-                string soundPath =
-                    System.IO.Path.Combine(
-                        AppDomain.CurrentDomain.BaseDirectory,
-                        "Assets",
-                        "boom.mp3"
+                string path =
+                    GetAssetPath(
+                        fileName
                     );
 
 
-                if (!System.IO.File.Exists(soundPath))
+                if (!System.IO.File.Exists(path))
                 {
-                    boomSoundReady = false;
-
                     return;
                 }
 
 
-                boomPlayer.Volume = 0.90;
+                player.Volume =
+                    0.95;
 
 
-                boomPlayer.Open(
+                player.Open(
                     new Uri(
-                        soundPath,
+                        path,
                         UriKind.Absolute
                     )
                 );
             }
             catch
             {
-                boomSoundReady = false;
             }
         }
 
 
-        private void BoomPlayer_MediaOpened(
-            object? sender,
-            EventArgs e)
+        // =========================================================
+        // START PLAYLIST
+        // =========================================================
+
+        private void StartBackgroundMusic()
         {
-            boomSoundReady = true;
+            if (backgroundMusicStarted)
+            {
+                return;
+            }
+
+
+            backgroundMusicStarted =
+                true;
+
+
+            currentTrackIndex =
+                0;
+
+
+            PlayCurrentBackgroundTrack();
         }
 
 
-        private void BoomPlayer_MediaFailed(
-            object? sender,
-            ExceptionEventArgs e)
+        // =========================================================
+        // PLAY TRACK
+        // =========================================================
+
+        private void PlayCurrentBackgroundTrack()
         {
-            boomSoundReady = false;
-        }
+            if (backgroundTracks.Length == 0)
+            {
+                return;
+            }
 
 
-        private void PlayBoomSound()
-        {
             try
             {
-                if (!boomSoundReady)
+                bool found =
+                    false;
+
+
+                for (int attempt = 0;
+                     attempt < backgroundTracks.Length;
+                     attempt++)
                 {
-                    LoadBoomSound();
+                    string path =
+                        GetAssetPath(
+                            backgroundTracks[
+                                currentTrackIndex
+                            ]
+                        );
+
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        backgroundPlayer.Stop();
+
+
+                        backgroundPlayer.Close();
+
+
+                        backgroundPlayer.Volume =
+                            BackgroundMusicVolume;
+
+
+                        backgroundPlayer.Open(
+                            new Uri(
+                                path,
+                                UriKind.Absolute
+                            )
+                        );
+
+
+                        backgroundPlayer.Play();
+
+
+                        found =
+                            true;
+
+
+                        break;
+                    }
+
+
+                    currentTrackIndex =
+                        (
+                            currentTrackIndex +
+                            1
+                        )
+                        %
+                        backgroundTracks.Length;
                 }
 
 
-                boomPlayer.Stop();
-
-                boomPlayer.Position =
-                    TimeSpan.Zero;
-
-                boomPlayer.Play();
+                if (!found)
+                {
+                    backgroundMusicStarted =
+                        false;
+                }
             }
             catch
             {
             }
+        }
+
+
+        // =========================================================
+        // BGM OPENED
+        // =========================================================
+
+        private void BackgroundPlayer_MediaOpened(
+            object? sender,
+            EventArgs e)
+        {
+            backgroundFailCount =
+                0;
+        }
+
+
+        // =========================================================
+        // BGM HẾT BÀI -> NEXT
+        // =========================================================
+
+        private void BackgroundPlayer_MediaEnded(
+            object? sender,
+            EventArgs e)
+        {
+            currentTrackIndex =
+                (
+                    currentTrackIndex +
+                    1
+                )
+                %
+                backgroundTracks.Length;
+
+
+            PlayCurrentBackgroundTrack();
+        }
+
+
+        // =========================================================
+        // BGM ERROR -> SKIP BÀI
+        // =========================================================
+
+        private void BackgroundPlayer_MediaFailed(
+            object? sender,
+            ExceptionEventArgs e)
+        {
+            backgroundFailCount++;
+
+
+            if (backgroundFailCount >=
+                backgroundTracks.Length)
+            {
+                backgroundMusicStarted =
+                    false;
+
+
+                return;
+            }
+
+
+            currentTrackIndex =
+                (
+                    currentTrackIndex +
+                    1
+                )
+                %
+                backgroundTracks.Length;
+
+
+            PlayCurrentBackgroundTrack();
+        }
+
+
+        // =========================================================
+        // FADE NHẠC NỀN
+        // =========================================================
+
+        private async Task FadeBackgroundVolume(
+            double targetVolume,
+            int milliseconds)
+        {
+            if (!backgroundMusicStarted)
+            {
+                return;
+            }
+
+
+            double startVolume =
+                backgroundPlayer.Volume;
+
+
+            const int steps =
+                12;
+
+
+            int delay =
+                Math.Max(
+                    1,
+                    milliseconds /
+                    steps
+                );
+
+
+            for (int i = 1;
+                 i <= steps;
+                 i++)
+            {
+                double progress =
+                    i /
+                    (double)steps;
+
+
+                backgroundPlayer.Volume =
+                    startVolume +
+                    (
+                        targetVolume -
+                        startVolume
+                    )
+                    *
+                    progress;
+
+
+                await Task.Delay(
+                    delay
+                );
+            }
+
+
+            backgroundPlayer.Volume =
+                targetVolume;
+        }
+
+
+        // =========================================================
+        // EFFECT + DUCK BGM
+        // =========================================================
+
+        private async Task PlayEffectWithDuck(
+            MediaPlayer player,
+            double duckVolume,
+            int restoreAfterMilliseconds)
+        {
+            try
+            {
+                if (backgroundMusicStarted)
+                {
+                    await FadeBackgroundVolume(
+                        duckVolume,
+                        140
+                    );
+                }
+
+
+                player.Stop();
+
+
+                player.Position =
+                    TimeSpan.Zero;
+
+
+                player.Volume =
+                    0.95;
+
+
+                player.Play();
+
+
+                await Task.Delay(
+                    restoreAfterMilliseconds
+                );
+
+
+                if (backgroundMusicStarted)
+                {
+                    await FadeBackgroundVolume(
+                        BackgroundMusicVolume,
+                        500
+                    );
+                }
+            }
+            catch
+            {
+                if (backgroundMusicStarted)
+                {
+                    backgroundPlayer.Volume =
+                        BackgroundMusicVolume;
+                }
+            }
+        }
+
+
+        // =========================================================
+        // DING DONG
+        // =========================================================
+
+        private void PlayDingSound()
+        {
+            _ =
+                PlayEffectWithDuck(
+                    dingPlayer,
+                    0.05,
+                    1200
+                );
+        }
+
+
+        // =========================================================
+        // BOOM
+        // =========================================================
+
+        private void PlayBoomSound()
+        {
+            _ =
+                PlayEffectWithDuck(
+                    boomPlayer,
+                    0.025,
+                    1700
+                );
         }
 
 
@@ -355,7 +731,9 @@ namespace HeartProtocol
         {
             if (e.Key == Key.Enter)
             {
-                e.Handled = true;
+                e.Handled =
+                    true;
+
 
                 await CheckIdentity();
             }
@@ -376,7 +754,8 @@ namespace HeartProtocol
                 );
 
 
-            if (string.IsNullOrWhiteSpace(enteredName))
+            if (string.IsNullOrWhiteSpace(
+                enteredName))
             {
                 LoginStatusText.Foreground =
                     new SolidColorBrush(
@@ -393,6 +772,7 @@ namespace HeartProtocol
 
 
                 NameInput.Focus();
+
 
                 return;
             }
@@ -413,10 +793,15 @@ namespace HeartProtocol
                         string.Equals(
                             enteredName,
                             NormalizeName(name),
-                            StringComparison.CurrentCultureIgnoreCase
+                            StringComparison
+                                .CurrentCultureIgnoreCase
                         )
                 );
 
+
+            // =====================================================
+            // SAI
+            // =====================================================
 
             if (!isCorrect)
             {
@@ -437,13 +822,20 @@ namespace HeartProtocol
 
                 NameInput.SelectAll();
 
+
                 NameInput.Focus();
+
 
                 return;
             }
 
 
-            isTransitioning = true;
+            // =====================================================
+            // ĐÚNG
+            // =====================================================
+
+            isTransitioning =
+                true;
 
 
             LoginStatusText.Foreground =
@@ -461,12 +853,24 @@ namespace HeartProtocol
                 "ĐI TÌM TÌNH YÊU THOIIII...";
 
 
-            LoginButton.IsEnabled = false;
+            LoginButton.IsEnabled =
+                false;
 
-            NameInput.IsEnabled = false;
+
+            NameInput.IsEnabled =
+                false;
 
 
-            await Task.Delay(1000);
+            // =====================================================
+            // DING DONG NGAY KHI LOGIN THÀNH CÔNG
+            // =====================================================
+
+            PlayDingSound();
+
+
+            await Task.Delay(
+                1000
+            );
 
 
             await SwitchScene(
@@ -481,14 +885,20 @@ namespace HeartProtocol
             await RunBootSequence();
 
 
-            isTransitioning = false;
+            isTransitioning =
+                false;
         }
 
+
+        // =========================================================
+        // NORMALIZE NAME
+        // =========================================================
 
         private static string NormalizeName(
             string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(
+                input))
             {
                 return string.Empty;
             }
@@ -503,7 +913,8 @@ namespace HeartProtocol
                         '\r',
                         '\n'
                     },
-                    StringSplitOptions.RemoveEmptyEntries
+                    StringSplitOptions
+                        .RemoveEmptyEntries
                 );
 
 
@@ -527,6 +938,7 @@ namespace HeartProtocol
                 Visibility.Visible
 
                     ? Visibility.Hidden
+
                     : Visibility.Visible;
         }
 
@@ -556,7 +968,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(850);
+            await Task.Delay(
+                850
+            );
 
 
             await AppendText(
@@ -570,7 +984,8 @@ namespace HeartProtocol
             );
 
 
-            bootReady = true;
+            bootReady =
+                true;
         }
 
 
@@ -585,7 +1000,8 @@ namespace HeartProtocol
             }
 
 
-            isTransitioning = true;
+            isTransitioning =
+                true;
 
 
             cursorTimer.Stop();
@@ -600,7 +1016,8 @@ namespace HeartProtocol
             await RunScanSequence();
 
 
-            isTransitioning = false;
+            isTransitioning =
+                false;
         }
 
 
@@ -620,7 +1037,8 @@ namespace HeartProtocol
             };
 
 
-            ScanProgress.Value = 0;
+            ScanProgress.Value =
+                0;
 
 
             ScanProgress.Foreground =
@@ -640,14 +1058,19 @@ namespace HeartProtocol
 
 
                 ScanPercentText.Text =
-                    percent + "%";
+                    percent +
+                    "%";
 
 
-                await Task.Delay(430);
+                await Task.Delay(
+                    430
+                );
             }
 
 
-            await Task.Delay(350);
+            await Task.Delay(
+                350
+            );
 
 
             ScanProgress.Foreground =
@@ -664,7 +1087,9 @@ namespace HeartProtocol
                 Visibility.Visible;
 
 
-            await Task.Delay(650);
+            await Task.Delay(
+                650
+            );
 
 
             string processInfo =
@@ -684,7 +1109,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1000);
+            await Task.Delay(
+                1000
+            );
 
 
             InspectQuestion.Visibility =
@@ -695,6 +1122,10 @@ namespace HeartProtocol
                 Visibility.Visible;
         }
 
+
+        // =========================================================
+        // INSPECT
+        // =========================================================
 
         private async void InspectButton_Click(
             object sender,
@@ -715,7 +1146,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(100);
+            await Task.Delay(
+                100
+            );
 
 
             for (int i = 0;
@@ -752,7 +1185,9 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.00,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(0)
+                        TimeSpan.FromMilliseconds(
+                            0
+                        )
                     )
                 )
             );
@@ -762,7 +1197,9 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.15,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(180)
+                        TimeSpan.FromMilliseconds(
+                            180
+                        )
                     )
                 )
             );
@@ -772,7 +1209,9 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.00,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(360)
+                        TimeSpan.FromMilliseconds(
+                            360
+                        )
                     )
                 )
             );
@@ -782,7 +1221,9 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.10,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(500)
+                        TimeSpan.FromMilliseconds(
+                            500
+                        )
                     )
                 )
             );
@@ -792,7 +1233,9 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.00,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(680)
+                        TimeSpan.FromMilliseconds(
+                            680
+                        )
                     )
                 )
             );
@@ -802,24 +1245,32 @@ namespace HeartProtocol
                 new LinearDoubleKeyFrame(
                     1.00,
                     KeyTime.FromTimeSpan(
-                        TimeSpan.FromMilliseconds(1150)
+                        TimeSpan.FromMilliseconds(
+                            1150
+                        )
                     )
                 )
             );
 
 
             scale.BeginAnimation(
-                ScaleTransform.ScaleXProperty,
+                ScaleTransform
+                    .ScaleXProperty,
                 animation
             );
 
 
             scale.BeginAnimation(
-                ScaleTransform.ScaleYProperty,
+                ScaleTransform
+                    .ScaleYProperty,
                 animation
             );
         }
 
+
+        // =========================================================
+        // HEART TIMER
+        // =========================================================
 
         private void HeartSpawnTimer_Tick(
             object? sender,
@@ -837,7 +1288,7 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // TIM BAY
+        // HEART PARTICLES
         // =========================================================
 
         private void SpawnHeart(
@@ -861,7 +1312,8 @@ namespace HeartProtocol
             TextBlock heart =
                 new TextBlock
                 {
-                    Text = "❤",
+                    Text =
+                        "❤",
 
                     FontFamily =
                         new FontFamily(
@@ -885,7 +1337,9 @@ namespace HeartProtocol
 
                     Opacity =
                         0.25 +
-                        random.NextDouble() * 0.6
+                        random.NextDouble()
+                        *
+                        0.6
                 };
 
 
@@ -902,7 +1356,8 @@ namespace HeartProtocol
             if (aroundCenter)
             {
                 x =
-                    width / 2 +
+                    width /
+                    2 +
                     random.Next(
                         -350,
                         351
@@ -910,7 +1365,8 @@ namespace HeartProtocol
 
 
                 y =
-                    height / 2 +
+                    height /
+                    2 +
                     random.Next(
                         -80,
                         260
@@ -919,7 +1375,8 @@ namespace HeartProtocol
             else
             {
                 x =
-                    random.NextDouble() *
+                    random.NextDouble()
+                    *
                     width;
 
 
@@ -946,15 +1403,19 @@ namespace HeartProtocol
 
             double seconds =
                 3 +
-                random.NextDouble() * 3;
+                random.NextDouble()
+                *
+                3;
 
 
             DoubleAnimation moveUp =
                 new DoubleAnimation
                 {
-                    From = y,
+                    From =
+                        y,
 
-                    To = -100,
+                    To =
+                        -100,
 
                     Duration =
                         TimeSpan.FromSeconds(
@@ -966,7 +1427,8 @@ namespace HeartProtocol
             DoubleAnimation drift =
                 new DoubleAnimation
                 {
-                    From = x,
+                    From =
+                        x,
 
                     To =
                         x +
@@ -985,9 +1447,11 @@ namespace HeartProtocol
             DoubleAnimation fade =
                 new DoubleAnimation
                 {
-                    From = heart.Opacity,
+                    From =
+                        heart.Opacity,
 
-                    To = 0,
+                    To =
+                        0,
 
                     Duration =
                         TimeSpan.FromSeconds(
@@ -1025,7 +1489,7 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // CLICK HEART
+        // BIG HEART
         // =========================================================
 
         private async void BigHeart_MouseLeftButtonDown(
@@ -1038,7 +1502,8 @@ namespace HeartProtocol
             }
 
 
-            heartOpened = true;
+            heartOpened =
+                true;
 
 
             heartSpawnTimer.Stop();
@@ -1055,7 +1520,9 @@ namespace HeartProtocol
             }
 
 
-            await Task.Delay(500);
+            await Task.Delay(
+                500
+            );
 
 
             await SwitchScene(
@@ -1091,7 +1558,8 @@ namespace HeartProtocol
             }
 
 
-            memoryBusy = true;
+            memoryBusy =
+                true;
 
 
             button.IsEnabled =
@@ -1101,7 +1569,9 @@ namespace HeartProtocol
             string memory;
 
 
-            switch (button.Tag?.ToString())
+            switch (
+                button.Tag?.ToString()
+            )
             {
                 case "1":
 
@@ -1139,14 +1609,22 @@ namespace HeartProtocol
             );
 
 
-            if (button.Tag?.ToString() == "1")
+            if (
+                button.Tag?.ToString()
+                ==
+                "1"
+            )
             {
                 SecondMemoryButton.IsEnabled =
                     true;
             }
 
 
-            if (button.Tag?.ToString() == "2")
+            if (
+                button.Tag?.ToString()
+                ==
+                "2"
+            )
             {
                 LastMemoryButton.IsEnabled =
                     true;
@@ -1157,9 +1635,15 @@ namespace HeartProtocol
                 false;
 
 
-            if (button.Tag?.ToString() == "3")
+            if (
+                button.Tag?.ToString()
+                ==
+                "3"
+            )
             {
-                await Task.Delay(350);
+                await Task.Delay(
+                    350
+                );
 
 
                 MemoryContinueButton.Visibility =
@@ -1177,7 +1661,7 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // TIẾP TỤC SAU LAST
+        // CONTINUE
         // =========================================================
 
         private async void MemoryContinueButton_Click(
@@ -1222,7 +1706,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(850);
+            await Task.Delay(
+                850
+            );
 
 
             await SwitchScene(
@@ -1254,7 +1740,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(650);
+            await Task.Delay(
+                650
+            );
 
 
             await AppendText(
@@ -1266,7 +1754,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(700);
+            await Task.Delay(
+                700
+            );
 
 
             await AppendText(
@@ -1282,19 +1772,24 @@ namespace HeartProtocol
                 Visibility.Visible;
 
 
-            await Task.Delay(350);
+            await Task.Delay(
+                350
+            );
 
 
-            for (int percent = 0;
-                 percent <= 100;
-                 percent += 5)
+            for (
+                int percent = 0;
+                percent <= 100;
+                percent += 5
+            )
             {
                 DecryptProgress.Value =
                     percent;
 
 
                 int blocks =
-                    percent / 5;
+                    percent /
+                    5;
 
 
                 string bar =
@@ -1307,7 +1802,8 @@ namespace HeartProtocol
                 string empty =
                     new string(
                         '░',
-                        20 - blocks
+                        20 -
+                        blocks
                     );
 
 
@@ -1319,11 +1815,15 @@ namespace HeartProtocol
                     "%";
 
 
-                await Task.Delay(55);
+                await Task.Delay(
+                    55
+                );
             }
 
 
-            await Task.Delay(650);
+            await Task.Delay(
+                650
+            );
 
 
             await AppendText(
@@ -1335,7 +1835,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(500);
+            await Task.Delay(
+                500
+            );
 
 
             SecretButton.Visibility =
@@ -1378,7 +1880,9 @@ namespace HeartProtocol
             FinalScrollViewer.ScrollToTop();
 
 
-            await Task.Delay(550);
+            await Task.Delay(
+                550
+            );
 
 
             FinalContent.Visibility =
@@ -1425,7 +1929,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(950);
+            await Task.Delay(
+                950
+            );
 
 
             await TypeText(
@@ -1439,7 +1945,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1200);
+            await Task.Delay(
+                1200
+            );
 
 
             string displayName =
@@ -1448,6 +1956,7 @@ namespace HeartProtocol
                 )
 
                     ? "[TÊN NGƯỜI ẤY]"
+
                     : HerName;
 
 
@@ -1467,7 +1976,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1300);
+            await Task.Delay(
+                1300
+            );
 
 
             await TypeText(
@@ -1477,7 +1988,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1000);
+            await Task.Delay(
+                1000
+            );
 
 
             await AppendText(
@@ -1486,6 +1999,10 @@ namespace HeartProtocol
                 15
             );
 
+
+            // =====================================================
+            // BOOM + NHẠC NỀN TỰ HẠ
+            // =====================================================
 
             PlayBoomSound();
 
@@ -1497,7 +2014,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1000);
+            await Task.Delay(
+                1000
+            );
 
 
             await AppendText(
@@ -1507,7 +2026,9 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(1000);
+            await Task.Delay(
+                1000
+            );
 
 
             await TypeText(
@@ -1519,14 +2040,18 @@ namespace HeartProtocol
             );
 
 
-            await Task.Delay(500);
+            await Task.Delay(
+                500
+            );
 
 
             FinalButtons.Visibility =
                 Visibility.Visible;
 
 
-            await Task.Delay(150);
+            await Task.Delay(
+                150
+            );
 
 
             FinalScrollViewer.ScrollToEnd();
@@ -1568,9 +2093,11 @@ namespace HeartProtocol
             FinalScrollViewer.ScrollToEnd();
 
 
-            for (int i = 0;
-                 i < 75;
-                 i++)
+            for (
+                int i = 0;
+                i < 75;
+                i++
+            )
             {
                 SpawnHeart(
                     FinalHeartCanvas,
@@ -1578,14 +2105,22 @@ namespace HeartProtocol
                 );
 
 
-                if (i % 10 == 0)
+                if (
+                    i %
+                    10 ==
+                    0
+                )
                 {
-                    await Task.Delay(20);
+                    await Task.Delay(
+                        20
+                    );
                 }
             }
 
 
-            await Task.Delay(1200);
+            await Task.Delay(
+                1200
+            );
 
 
             await ShowDeveloperNote();
@@ -1629,7 +2164,9 @@ namespace HeartProtocol
             FinalScrollViewer.ScrollToEnd();
 
 
-            await Task.Delay(1200);
+            await Task.Delay(
+                1200
+            );
 
 
             await ShowDeveloperNote();
@@ -1637,7 +2174,7 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // GHI CHÚ CUỐI
+        // NOTE
         // =========================================================
 
         private async Task ShowDeveloperNote()
@@ -1685,7 +2222,10 @@ namespace HeartProtocol
                 "";
 
 
-            foreach (char character in text)
+            foreach (
+                char character
+                in text
+            )
             {
                 textBlock.Text +=
                     character;
@@ -1703,7 +2243,10 @@ namespace HeartProtocol
             string text,
             int delay = 35)
         {
-            foreach (char character in text)
+            foreach (
+                char character
+                in text
+            )
             {
                 textBlock.Text +=
                     character;
@@ -1717,7 +2260,7 @@ namespace HeartProtocol
 
 
         // =========================================================
-        // SCENE
+        // SWITCH SCENE
         // =========================================================
 
         private async Task SwitchScene(
@@ -1749,6 +2292,10 @@ namespace HeartProtocol
         }
 
 
+        // =========================================================
+        // OPACITY
+        // =========================================================
+
         private Task AnimateOpacity(
             UIElement element,
             double from,
@@ -1762,9 +2309,11 @@ namespace HeartProtocol
             DoubleAnimation animation =
                 new DoubleAnimation
                 {
-                    From = from,
+                    From =
+                        from,
 
-                    To = to,
+                    To =
+                        to,
 
                     Duration =
                         TimeSpan.FromMilliseconds(
