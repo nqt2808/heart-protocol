@@ -10,22 +10,30 @@
 
   <ItemGroup>
     <None Remove="Assets\boom.mp3" />
+    <None Remove="Assets\dingdong.mp3" />
+    <None Remove="Assets\Doorbell %28Ding Dong%29 - Sound Effect for Editing.mp3" />
+    <None Remove="Assets\im-doi-nguoi-anh-thuong.mp3" />
+    <None Remove="Assets\nguoi-im-lang-gap-nguoi-hay-noi.mp3" />
     <None Remove="Assets\Người Im Lặng Gặp Người Hay Nói - HIEUTHUHAI.mp3" />
     <None Remove="Assets\SpotiDownloader.com - IDNAT %28IM ĐỢI NGƯỜI ANH THƯƠNG%29 - TINH HÀ _SAY HI_ %281%29.mp3" />
     <None Remove="Assets\SpotiDownloader.com - Yes or No - Jung Kook.mp3" />
+    <None Remove="Assets\yes-or-no.mp3" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\boom.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Người Im Lặng Gặp Người Hay Nói - HIEUTHUHAI.mp3">
+    <Content Include="Assets\dingdong.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\SpotiDownloader.com - IDNAT (IM ĐỢI NGƯỜI ANH THƯƠNG) - TINH HÀ _SAY HI_ (1).mp3">
+    <Content Include="Assets\im-doi-nguoi-anh-thuong.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\SpotiDownloader.com - Yes or No - Jung Kook.mp3">
+    <Content Include="Assets\nguoi-im-lang-gap-nguoi-hay-noi.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\yes-or-no.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

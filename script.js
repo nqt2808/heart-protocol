@@ -3,7 +3,8 @@
    =================================================================== */
 
 // --- CONFIG & PERSONALIZATION ---
-const HerName = "Tuyết Mai";
+const HerPrefix = "Là chị đó,";
+const HerName = "Nguyễn Thị Tuyết Mai";
 
 const AcceptedNames = [
   "bình",
@@ -13,7 +14,7 @@ const AcceptedNames = [
 ];
 
 const First =
-  "Ở đây em sẽ thành thật với cảm xúc của mình nhé chị.\n\n" +
+  "Ở đây em sẽ thành thật với cảm xúc của mình nhé chị." +
   "Em thích được ở bên chị, thích cách chị quan tâm em, " +
   "những cái đụng chạm của chị, ánh mắt chị nhìn em " +
   "và cả nụ cười đi kèm nữa.\n\n" +
@@ -25,7 +26,7 @@ const First =
   "nhiều hơn mức em tưởng.";
 
 const Second =
-  "Em cũng bắt đầu muốn biết nhiều hơn về một ngày của chị.\n\n" +
+  "Em cũng bắt đầu muốn biết nhiều hơn về một ngày của chị." +
   "Hôm nay chị ăn chưa, có mệt không, có nhiều việc không, " +
   "có chuyện gì làm chị buồn không, tối qua chị ngủ đủ giấc không...\n\n" +
   "Những chuyện nhỏ vậy thôi mà tự nhiên em lại muốn biết.\n\n" +
@@ -34,43 +35,52 @@ const Second =
   "nhưng lại không chắc chị đang nhìn em như thế nào.\n\n";
 
 const Last =
-  "Em biết giữa chúng ta có khoảng cách.\n\n" +
+  "Em biết giữa chúng ta có khoảng cách." +
   "Tuổi tác, trải nghiệm, cách nhìn cuộc sống " +
   "và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào " +
   "nếu chị chưa muốn kể.\n\n" +
-  "Em cũng biết mình còn non, " +
-  "chưa đủ trải đời để nói rằng em hiểu hết mọi thứ.\n\n" +
+  "Em cũng biết mình còn nhỏ, " +
+  "chưa đủ lớn để nói rằng em hiểu hết mọi thứ.\n\n" +
   "Nhưng nếu một ngày chị mệt và cần một người ngồi nghe chị ràm, " +
   "em nghe.\n\n" +
-  "Nếu chị bận đến quên ăn, em nhắc chị ăn.\n" +
+  "Nếu chị bận đến quên ăn, em nhắc chị ăn. " +
   "Nếu chị cần người đón đưa, em sẵn lòng.\n\n" +
   "Còn nếu có lúc chị chỉ cần một vòng tay " +
-  "và không muốn nói gì cả...\n\n" +
+  "và không muốn nói gì cả..." +
   "em cũng muốn cho chị vòng tay đó.\n\n" +
-  "Em không hứa mình có thể bù đắp những điều không vui đã qua.\n\n" +
-  "Em chỉ muốn nếu chị cho phép, " +
+  "Em không hứa mình có thể bù đắp những điều không vui đã qua." +
+  "Nhưng nếu chị cho phép, " +
   "em sẽ đem những gì tốt nhất em có đến cho chị.\n\n" +
-  "Ở bên chị em không cần phải gồng và ngược lại.\n\n" +
+  "Ở bên em chị không cần phải gồng và ngược lại. " +
+  "Khóc cũng được, nhõng nhẽo cũng dễ thương, buồn bực cứ xả hết lên em, mệt thì cứ nói chị nhé. " +
+  "Ở bên em chị cứ là chị thôi nhé!!! \n\n" +
   "Và em cũng muốn một ngày nào đó, " +
   "mình có thể trở thành một nơi đủ yên để chị dựa vào.";
 
-const FinalMessageBeforeBoom =
+const FinalMessageBeforeBoom_Part1 =
   "Em đã tự hỏi mình khá nhiều lần.\n\n" +
-  "Đây là quý chị, ngưỡng mộ chị, " +
+  "Đây là quý chị, ngưỡng mộ chị,\n\n" +
   "hay chỉ vì được chị quan tâm nên em rung động?\n\n" +
   "Nhưng càng né thì em càng để ý.\n" +
   "Càng cố không nghĩ thì em lại càng nghĩ.\n\n" +
   "Đến lúc này em nhận ra...\n\n" +
   "Tuổi tác hay generation gap, 15-20 tuổi " +
   "không còn là thứ làm em băn khoăn nhất nữa.\n\n" +
-  "Thứ làm em băn khoăn suy nghĩ nhiều nhất là chị.\n\n" +
-  "'Ủa chỉ làm vậy là có ý gì?' , " +
-  "'Ủa chỉ có thích mình không ta?' , " +
-  "'Chị oi đùng nhìn em z nữa em ngại chết mất.' , " +
+  "Thứ làm em băn khoăn suy nghĩ nhiều nhất là chị.\n\n";
+
+const FinalMessageBeforeBoom_POV =
+  "'Ủa chỉ làm vậy là có ý gì?'\n\n" +
+  "'Ủa chỉ có thích mình không ta?'\n\n" +
+  "'Chị oi đùng nhìn em z nữa em ngại chết mất.'\n\n";
+
+const FinalMessageBeforeBoom_Part2 =
   "cũng không phải vì em thích cảm giác mình là ngoại lệ.\n\n" +
   "Mà vì chị khiến một ngày mệt mỏi của em nhẹ đi.\n" +
   "Và em thích chính mình khi ở cạnh chị.\n\n" +
   "Rồi chẳng biết từ lúc nào...";
+
+const FinalMessageBeforeBoom =
+  FinalMessageBeforeBoom_Part1 + FinalMessageBeforeBoom_POV + FinalMessageBeforeBoom_Part2;
 
 const FinalMessageAfterBoom =
   "Em thích chị thật rồi :))))))\n\n" +
@@ -154,16 +164,16 @@ const musicSoundbars = document.getElementById("musicSoundbars");
 
 const Playlist = [
   {
-    title: "Yes or No - Jung Kook",
-    src: "music/yes_or_no.mp3"
-  },
-  {
     title: "Người Im Lặng Gặp Người Hay Nói - HIEUTHUHAI",
     src: "music/nguoi_im_lang.mp3"
   },
   {
     title: "Im Đợi Người Anh Thương - Tinh Hà Say Hi",
     src: "music/im_doi_nguoi_anh_thuong.mp3"
+  },
+  {
+    title: "Yes or No - Jung Kook",
+    src: "music/yes_or_no.mp3"
   }
 ];
 
@@ -180,17 +190,23 @@ function loadTrack(index) {
   musicTitleText.textContent = track.title;
 }
 
+// Preload first track metadata
+loadTrack(0);
+
 function startMusic() {
   if (!bgMusic.src || bgMusic.src === "") {
     loadTrack(0);
   }
-  bgMusic.volume = 0.45;
-  bgMusic.play().then(() => {
-    setMusicPlayingState(true);
-  }).catch((err) => {
-    console.log("Audio autoplay waiting or file not found:", err);
-    setMusicPlayingState(false);
-  });
+  bgMusic.volume = 0.5;
+  const p = bgMusic.play();
+  if (p !== undefined) {
+    p.then(() => {
+      setMusicPlayingState(true);
+    }).catch((err) => {
+      console.log("startMusic error/waiting for gesture:", err);
+      setMusicPlayingState(false);
+    });
+  }
 }
 
 function toggleMusic() {
@@ -211,7 +227,8 @@ function nextTrack() {
   loadTrack(currentTrackIndex + 1);
   bgMusic.play().then(() => {
     setMusicPlayingState(true);
-  }).catch(() => {
+  }).catch((e) => {
+    console.log("nextTrack play error:", e);
     setMusicPlayingState(false);
   });
 }
@@ -233,8 +250,8 @@ if (bgMusic) {
   bgMusic.addEventListener("ended", () => {
     nextTrack();
   });
-  bgMusic.addEventListener("error", () => {
-    console.log("Track file not loaded: " + Playlist[currentTrackIndex].src);
+  bgMusic.addEventListener("error", (e) => {
+    console.log("Track file error: " + Playlist[currentTrackIndex].src, e);
   });
 }
 
@@ -249,15 +266,23 @@ function unlockAudio() {
     boomAudio.play().then(() => {
       boomAudio.pause();
       boomAudio.currentTime = 0;
-    }).catch(() => {});
-  }
-  if (dingdongAudio) {
-    dingdongAudio.play().then(() => {
-      dingdongAudio.pause();
-      dingdongAudio.currentTime = 0;
-    }).catch(() => {});
+    }).catch(() => { });
   }
 }
+
+// Attempt immediate autoplay on load
+startMusic();
+
+// In case browser autoplay policy requires user gesture, start immediately on first interaction
+const userGestureEvents = ["pointerdown", "touchstart", "click", "keydown"];
+function onFirstUserGesture() {
+  unlockAudio();
+  if (!isMusicPlaying) {
+    startMusic();
+  }
+  userGestureEvents.forEach((evt) => window.removeEventListener(evt, onFirstUserGesture));
+}
+userGestureEvents.forEach((evt) => window.addEventListener(evt, onFirstUserGesture, { passive: true }));
 
 function playBoomSound() {
   if (boomAudio && boomAudio.readyState >= 2) {
@@ -741,14 +766,25 @@ async function runFinalSequence() {
   await typeText(finalLead, "Người làm 'bộ nhớ' của em\nthường xuyên bị 'tràn' là...", 40, true);
   await sleep(1100);
 
-  herNameDisplay.textContent = HerName;
+  herNameDisplay.innerHTML = `<span class="her-prefix">${HerPrefix}</span><span class="her-name">${HerName}</span>`;
   herNameDisplay.style.display = "block";
   await sleep(50);
   herNameDisplay.style.opacity = "1";
   scrollToBottomSmooth();
 
   await sleep(1300);
-  await typeText(finalLove, FinalMessageBeforeBoom, 32, true);
+  finalLove.innerHTML = "";
+  const part1Span = document.createElement("span");
+  const povSpan = document.createElement("span");
+  povSpan.className = "final-pov-italic";
+  const part2Span = document.createElement("span");
+  finalLove.appendChild(part1Span);
+  finalLove.appendChild(povSpan);
+  finalLove.appendChild(part2Span);
+
+  await appendText(part1Span, FinalMessageBeforeBoom_Part1, 32, true);
+  await appendText(povSpan, FinalMessageBeforeBoom_POV, 32, true);
+  await appendText(part2Span, FinalMessageBeforeBoom_Part2, 32, true);
   await sleep(1000);
 
   // Climax: Sound & Explosion banner
