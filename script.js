@@ -29,7 +29,7 @@ const Second =
 
 const Last =
   "Em biết giữa chúng ta có những khoảng cách. \n\n" +
-  "Tuổi tác, trải nghiệm, cách nhìn cuộc sống sống và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào nếu chị chưa muốn kể.\n\n" +
+  "Tuổi tác, trải nghiệm, cách nhìn cuộc sống và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào nếu chị chưa muốn kể.\n\n" +
   "Em cũng biết mình còn nhỏ, chưa đủ lớn để nói rằng em hiểu hết mọi thứ.\n\n" +
   "Nhưng nếu một ngày chị mệt và cần một người ngồi nghe chị ràm, em nghe.\n\n" +
   "Nếu chị bận đến quên ăn, em sẽ nhắc và nấu cho chị ăn. (dù trình nấu ăn của em cũng bình thường thôi, không đủ wow :)))))\n\n" +
