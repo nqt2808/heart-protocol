@@ -36,20 +36,20 @@
 
 html, body {
   width: 100%;
-  height: 100%;
   min-height: 100vh;
   min-height: -webkit-fill-available;
   background-color: var(--bg-primary);
   color: var(--color-text-main);
   font-family: var(--font-mono);
   overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
 }
 
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
@@ -207,6 +207,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 24px 16px;
+  margin: auto;
 }
 
 .scene {
@@ -225,6 +226,7 @@ body {
   justify-content: center;
   opacity: 1;
   animation: fadeIn 0.4s ease-out forwards;
+  margin: auto 0;
 }
 
 @keyframes fadeIn {

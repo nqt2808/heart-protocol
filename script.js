@@ -14,67 +14,51 @@ const AcceptedNames = [
 ];
 
 const First =
-  "Ở đây em sẽ thành thật với cảm xúc của mình nhé chị." +
-  "Em thích được ở bên chị, thích cách chị quan tâm em, " +
-  "những cái đụng chạm của chị, ánh mắt chị nhìn em " +
-  "và cả nụ cười đi kèm nữa.\n\n" +
-  "Không biết chị có nhận ra không, " +
-  "nhưng từ lúc biết chị, em thấy vai mình nhẹ hơn một chút.\n\n" +
-  "Có những hôm đi làm stress muốn điên, " +
-  "nhưng gặp chị một cái là tự nhiên vơi đi phân nửa.\n\n" +
-  "Rồi em bắt đầu thích được ở cạnh chị " +
-  "nhiều hơn mức em tưởng.";
+  "Ở đây em sẽ thành thật với cảm xúc của mình nhé chị.\n\n" +
+  "Em thích được ở bên chị, thích cách chị quan tâm em, những cái chạm của chị, ánh mắt chị nhìn em và cả nụ cười đi kèm nữa.\n\n" +
+  "Không biết chị có nhận ra không, nhưng từ lúc biết chị, em thấy vai mình nhẹ hơn một chút.\n\n" +
+  "Có những hôm đi làm stress muốn điên nhưng gặp chị một cái là tự nhiên vơi đi phân nửa.\n\n" +
+  "Rồi em bắt đầu thích được ở cạnh chị nhiều hơn mức em tưởng.";
 
 const Second =
-  "Em cũng bắt đầu muốn biết nhiều hơn về một ngày của chị." +
-  "Hôm nay chị ăn chưa, có mệt không, có nhiều việc không, " +
-  "có chuyện gì làm chị buồn không, tối qua chị ngủ đủ giấc không...\n\n" +
+  "Em cũng bắt đầu muốn biết nhiều hơn về một ngày của chị. \n\n" +
+  "Hôm nay chị ăn chưa, có mệt không, có nhiều việc không, có chuyện gì làm chị buồn không, tối qua chị ngủ đủ giấc không...?\n\n" +
   "Những chuyện nhỏ vậy thôi mà tự nhiên em lại muốn biết.\n\n" +
-  "Nhưng càng để ý thì em càng rén :))))\n\n" +
-  "Có lúc em muốn chủ động tiến thêm một bước, " +
-  "nhưng lại không chắc chị đang nhìn em như thế nào.\n\n";
+  "Nhưng càng để ý thì em càng rén :)))) \n\n" +
+  "Có lúc em muốn chủ động tiến thêm một bước, nhưng lại không chắc trong mắt chị em tồn tại dưới danh nghĩa gì.\n\n";
 
 const Last =
-  "Em biết giữa chúng ta có khoảng cách." +
-  "Tuổi tác, trải nghiệm, cách nhìn cuộc sống " +
-  "và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào " +
-  "nếu chị chưa muốn kể.\n\n" +
-  "Em cũng biết mình còn nhỏ, " +
-  "chưa đủ lớn để nói rằng em hiểu hết mọi thứ.\n\n" +
-  "Nhưng nếu một ngày chị mệt và cần một người ngồi nghe chị ràm, " +
-  "em nghe.\n\n" +
-  "Nếu chị bận đến quên ăn, em nhắc chị ăn. " +
+  "Em biết giữa chúng ta có những khoảng cách. \n\n" +
+  "Tuổi tác, trải nghiệm, cách nhìn cuộc sốngsống và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào nếu chị chưa muốn kể.\n\n" +
+  "Em cũng biết mình còn nhỏ, chưa đủ lớn để nói rằng em hiểu hết mọi thứ.\n\n" +
+  "Nhưng nếu một ngày chị mệt và cần một người ngồi nghe chị ràm, em nghe.\n\n" +
+  "Nếu chị bận đến quên ăn, em nhắc chị ăn.\n\n" +
   "Nếu chị cần người đón đưa, em sẵn lòng.\n\n" +
-  "Còn nếu có lúc chị chỉ cần một vòng tay " +
-  "và không muốn nói gì cả..." +
-  "em cũng muốn cho chị vòng tay đó.\n\n" +
-  "Em không hứa mình có thể bù đắp những điều không vui đã qua." +
-  "Nhưng nếu chị cho phép, " +
-  "em sẽ đem những gì tốt nhất em có đến cho chị.\n\n" +
-  "Ở bên em chị không cần phải gồng và ngược lại. " +
-  "Khóc cũng được, nhõng nhẽo cũng dễ thương, buồn bực cứ xả hết lên em, mệt thì cứ nói chị nhé. " +
-  "Ở bên em chị cứ là chị thôi nhé!!! \n\n" +
-  "Và em cũng muốn một ngày nào đó, " +
-  "mình có thể trở thành một nơi đủ yên để chị dựa vào.";
+  "Còn nếu có lúc chị chỉ cần một vòng tay và không muốn nói gì cả... Em muốn cho chị vòng tay đó.\n\n" +
+  "Em không hứa mình có thể bù đắp những điều không vui đã qua. Nhưng nếu chị cho phép, em sẽ đem những gì tốt nhất em có đến cho chị.\n\n" +
+  "Ở bên em chị không cần phải gồng và ngược lại. Khóc cũng được, nhõng nhẽo cũng dễ thương, buồn bực cứ xả hết lên em, mệt thì cứ nói chị nhé. Ở bên em chị cứ là chị thôi nhé!!! \n\n" +
+  "Và em cũng muốn một ngày nào đó, mình có thể trở thành một bờ vai đủ yên để chị dựa vào.";
 
 const FinalMessageBeforeBoom_Part1 =
   "Em đã tự hỏi mình khá nhiều lần.\n\n" +
-  "Đây là quý chị, ngưỡng mộ chị,\n\n" +
-  "hay chỉ vì được chị quan tâm nên em rung động?\n\n" +
+  "Đây là quý chị, ngưỡng mộ chị, hay chỉ vì được chị quan tâm hơn mọi người nên em rung động?\n\n" +
   "Nhưng càng né thì em càng để ý.\n" +
   "Càng cố không nghĩ thì em lại càng nghĩ.\n\n" +
   "Đến lúc này em nhận ra...\n\n" +
-  "Tuổi tác hay generation gap, 15-20 tuổi " +
-  "không còn là thứ làm em băn khoăn nhất nữa.\n\n" +
+  "Tuổi tác hay generation gap, 15-20 tuổi không còn là thứ làm em băn khoăn nhất nữa.\n\n" +
   "Thứ làm em băn khoăn suy nghĩ nhiều nhất là chị.\n\n";
 
 const FinalMessageBeforeBoom_POV =
   "'Ủa chỉ làm vậy là có ý gì?'\n\n" +
-  "'Ủa chỉ có thích mình không ta?'\n\n" +
+  "'Ủa là chỉ có thích mình không ta?'\n\n" +
+  "'Oi chỉ thơm quá đi mất.'\n\n" +
+  "'Sao hôm nay không thấy chỉ gọi cho mình ta?'\n\n" +
+  "'Awww nay nhớ chỉ quá.'\n\n" +
+  "'Oi nay được đi riêng với chỉ nè, Đã quá.'\n\n" +
   "'Chị oi đùng nhìn em z nữa em ngại chết mất.'\n\n";
 
 const FinalMessageBeforeBoom_Part2 =
-  "cũng không phải vì em thích cảm giác mình là ngoại lệ.\n\n" +
+  "Cũng không phải vì em thích cảm giác mình là ngoại lệ.\n\n" +
   "Mà vì chị khiến một ngày mệt mỏi của em nhẹ đi.\n" +
   "Và em thích chính mình khi ở cạnh chị.\n\n" +
   "Rồi chẳng biết từ lúc nào...";
@@ -84,14 +68,10 @@ const FinalMessageBeforeBoom =
 
 const FinalMessageAfterBoom =
   "Em thích chị thật rồi :))))))\n\n" +
-  "Không phải kiểu thích cho vui " +
-  "hay một phút bốc đồng rồi mai quên.\n\n" +
+  "Không phải kiểu thích cho vui hay một phút bốc đồng rồi mai quên.\n\n" +
   "Em muốn nghiêm túc bước thêm một bước về phía chị.\n\n" +
-  "Nếu chị cũng có một chút cảm giác giống em, " +
-  "thì cho em một cơ hội.\n\n" +
-  "Còn nếu không, em vẫn tôn trọng chị, " +
-  "tôn trọng câu trả lời của chị " +
-  "và trân trọng những gì đã có giữa hai người.\n\n" +
+  "Nếu chị cũng có một chút cảm giác giống em, thì cho em một cơ hội.\n\n" +
+  "Còn nếu không, em vẫn tôn trọng chị, tôn trọng câu trả lời của chị và trân trọng những gì đã có giữa hai người.\n\n" +
   "Em chỉ không muốn giấu cảm xúc này mãi nữa.\n\n" +
   "Nên hôm nay em nói thật.\n\n" +
   "Em thích chị. ❤";
@@ -107,8 +87,51 @@ function normalizeName(input) {
     .replace(/\s+/g, " ");
 }
 
-// Auto scroll on mobile devices
-function scrollToBottomSmooth() {
+// --- SMART SCROLL CONTROLLER ---
+// Allows user to freely scroll up/down without being forcefully pulled to the bottom
+let userScrolledUp = false;
+
+function checkIfNearBottom() {
+  const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
+  if (scrollPos + windowHeight >= docHeight - 90) {
+    userScrolledUp = false;
+  }
+}
+
+window.addEventListener("wheel", (e) => {
+  if (e.deltaY < 0) {
+    userScrolledUp = true;
+  } else if (e.deltaY > 0) {
+    checkIfNearBottom();
+  }
+}, { passive: true });
+
+let touchStartY = 0;
+window.addEventListener("touchstart", (e) => {
+  if (e.touches && e.touches.length > 0) {
+    touchStartY = e.touches[0].clientY;
+  }
+}, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+  if (e.touches && e.touches.length > 0) {
+    const deltaY = e.touches[0].clientY - touchStartY;
+    if (deltaY > 8) {
+      userScrolledUp = true;
+    } else if (deltaY < -8) {
+      checkIfNearBottom();
+    }
+  }
+}, { passive: true });
+
+window.addEventListener("scroll", () => {
+  checkIfNearBottom();
+}, { passive: true });
+
+function scrollToBottomSmooth(force = false) {
+  if (!force && userScrolledUp) return;
   window.scrollTo({
     top: document.documentElement.scrollHeight,
     behavior: "smooth"
@@ -146,6 +169,7 @@ async function switchScene(fromSceneId, toSceneId) {
 
   if (toScene) {
     toScene.classList.add("active");
+    userScrolledUp = false;
     window.scrollTo({ top: 0, behavior: "instant" });
     await sleep(50);
     toScene.style.opacity = "1";
@@ -262,11 +286,7 @@ function unlockAudio() {
   if (audioUnlocked) return;
   audioUnlocked = true;
   if (boomAudio) {
-    boomAudio.volume = 0.9;
-    boomAudio.play().then(() => {
-      boomAudio.pause();
-      boomAudio.currentTime = 0;
-    }).catch(() => { });
+    boomAudio.load();
   }
 }
 
@@ -760,10 +780,10 @@ const thinkBtn = document.getElementById("thinkBtn");
 const finalStatusResult = document.getElementById("finalStatusResult");
 
 async function runFinalSequence() {
-  await typeText(finalIntro, "Thật ra...\n\nem đã muốn nói điều này\ntừ khá lâu rồi.", 38, true);
+  await typeText(finalIntro, "Thật ra...\n\nEm không muốn vòng vo nữa rồi.", 38, true);
   await sleep(950);
 
-  await typeText(finalLead, "Người làm 'bộ nhớ' của em\nthường xuyên bị 'tràn' là...", 40, true);
+  await typeText(finalLead, "Người làm con tim em biết nhớ thương trở lại là...", 40, true);
   await sleep(1100);
 
   herNameDisplay.innerHTML = `<span class="her-prefix">${HerPrefix}</span><span class="her-name">${HerName}</span>`;
@@ -806,7 +826,7 @@ async function runFinalSequence() {
   await typeText(finalAfterBoom, FinalMessageAfterBoom, 34, true);
   await sleep(900);
 
-  await typeText(finalQuestion, "Vậy... chị có muốn cho em một cơ hội không? ❤", 35, true);
+  await typeText(finalQuestion, "Vậy... Chị cho em và chính chị một cơ hội nha ❤", 35, true);
   await sleep(500);
 
   finalActions.style.display = "flex";
@@ -819,7 +839,7 @@ yesBtn.addEventListener("click", async () => {
   thinkBtn.disabled = true;
 
   finalStatusResult.style.color = "var(--color-crimson)";
-  finalStatusResult.textContent = "OMG, SHE SAID YESSSSS ❤";
+  finalStatusResult.textContent = "YASSSS, SHE SAID YESSSSS ❤";
   scrollToBottomSmooth();
 
   for (let i = 0; i < 75; i++) {
