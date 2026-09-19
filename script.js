@@ -32,7 +32,7 @@ const Last =
   "Tuổi tác, trải nghiệm, cách nhìn cuộc sống và cả những chuyện khó nói mà em nghĩ mình không nên tự ý bước vào nếu chị chưa muốn kể.\n\n" +
   "Em cũng biết mình còn nhỏ, chưa đủ lớn để nói rằng em hiểu hết mọi thứ.\n\n" +
   "Nhưng nếu một ngày chị mệt và cần một người ngồi nghe chị ràm, em nghe.\n\n" +
-  "Nếu chị bận đến quên ăn, em sẽ nhắc và nấu cho chị ăn. (dù trình nấu ăn của em cũng bình thường thôi, không đủ wow :)))))\n\n" +
+  "Nếu chị bận đến quên ăn, em sẽ nhắc và nấu cho chị ăn. (dù trình nấu ăn của em cũng chả tới đâu cả :)))))\n\n" +
   "Nếu chị cần người đón đưa, em sẵn lòng.\n\n" +
   "Còn nếu có lúc chị chỉ cần một vòng tay và không muốn nói gì cả... Em muốn cho chị vòng tay đó.\n\n" +
   "Em không hứa mình có thể bù đắp những điều không vui đã qua. Nhưng nếu chị cho phép, em sẽ đem những gì tốt nhất em có đến cho chị.\n\n" +
